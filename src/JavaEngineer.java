@@ -4,8 +4,8 @@ class JavaEngineer {
     //以下是JAva工程师的资料，在输入Java工程师资料室输入的内容
     static int engNo = -1;       //编号
     static String engName = "";  //姓名
-    static int engSex = -1;      //性别（1：男  2：女）
-    static int engEdu = -1;          //学历（1：大专 2：本科 3：硕士 4：博士 5：其他）
+    static String engSex = "";      //性别（1：男  2：女）
+    static String engEdu = "";          //学历（1：大专 2：本科 3：硕士 4：博士 5：其他）
     static int basSalary = 3000;    //底薪
     static double insurance = 3000 * 0.105;   //保险金额
     //以下时Java工程师月工作资料，在计算月薪时输入
@@ -31,16 +31,16 @@ class JavaEngineer {
             userSel = showMenu();
             switch (userSel) {
                 case 1:
-                    System.out.println("a");
+                    inputEngInf();
                     break;
                 case 2:
-                    System.out.println("a");
+                    deleteEngInf();
                     break;
                 case 3:
-                    System.out.println("a");
+                    searchEngInf();
                     break;
                 case 4:
-                    System.out.println("a");
+                    modifyEngInf();
                     break;
                 case 5:
                     System.out.println("请输入Java工程师底薪");
@@ -139,49 +139,196 @@ class JavaEngineer {
                 }
 
                 System.out.println("请输入Java工程师的性别（1：男 2：女）");
-                engSex = input.nextInt();
-                if (engSex != 1 && engSex != 2) {
+                int engSexNo = input.nextInt();
+                if (engSexNo != 1 && engSexNo != 2) {
                     status = false;
                     System.out.println("请输入1或2表示性别");
                     continue;
                 } else {
+                    if (engSexNo == 1) {
+                        engSex = "男";
+                    } else {
+                        engSex = "女";
+                    }
                     status = true;
                 }
 
                 System.out.println("请输入Java工程师的学历");
                 System.out.println("1：大专 2：本科 3：硕士 4：博士 5：其他");
-                engEdu = input.nextInt();
-                if (engEdu != 1 && engEdu != 2 && engEdu != 3 && engEdu != 4 && engEdu != 5) {
+                int engEduNo = input.nextInt();
+                if (engEduNo != 1 && engEduNo != 2 && engEduNo != 3 && engEduNo != 4 && engEduNo != 5) {
                     status = false;
                     System.out.println("请输入以下数字代表学历");
                     System.out.println("1：大专 2：本科 3：硕士 4：博士 5：其他");
                     continue;
                 } else {
+                    if (engEduNo == 1) {
+                        engEdu = "大专";
+                    } else if (engEduNo == 2) {
+                        engEdu = "本科";
+                    } else if (engEduNo == 3) {
+                        engEdu = "硕士";
+                    } else if (engEduNo == 4) {
+                        engEdu = "博士";
+                    } else {
+                        engEdu = "其他";
+                    }
                     status = true;
                 }
 
                 System.out.println("请输入Java工程师的底薪");
-                basSalary= input.nextInt();
-                if(basSalary<=0){
-                    status=false;
+                basSalary = input.nextInt();
+                if (basSalary <= 0) {
+                    status = false;
                     System.out.println("Java工程师底薪必须为正数");
                     continue;
-                }
-                else{
-                    status=true;
+                } else {
+                    status = true;
                 }
 
                 System.out.println("请输入Java工程师月应扣保险金额");
-                insurance= input.nextInt();
-                if(insurance<=0){
-                    status=false;
+                insurance = input.nextInt();
+                if (insurance <= 0) {
+                    status = false;
                     System.out.println("Java工程师月应扣保险金额必须为正数");
                     continue;
-                }
-                else{
-                    status=true;
+                } else {
+                    status = true;
                 }
             }
+        }
+    }
+
+    /*
+    2.删除Java工程师资料
+     */
+    public static void deleteEngInf() {
+        while (true) {
+            int DelNo;
+            System.out.println("请输入想要删除的Java工程师的编号");
+            DelNo = input.nextInt();
+            if (DelNo == engNo) {
+                engNo = -1;
+                engName = "";
+                engSex = "";
+                engEdu = "";
+                basSalary = 3000;
+                insurance = 3000 * 0.105;
+                System.out.println("已删除Java工程师的信息");
+                continue;
+            } else if (DelNo == 0) {
+                break;
+            } else {
+                System.out.println("没有这个工程师");
+                continue;
+            }
+        }
+    }
+
+    /*
+    3.查询Java工程师资料
+     */
+    public static void searchEngInf() {
+        int seaNO = 1;
+
+        while (true) {
+            if (seaNO == 1) {
+                System.out.println("以下是Java工程师资料");
+                System.out.print(engNo);
+                System.out.print("\t" + engName);
+                System.out.print("\t" + engSex);
+                System.out.print("\t" + engEdu);
+                System.out.print("\t" + basSalary);
+                System.out.println("\t" + insurance);
+                System.out.println("输入0退出");
+                seaNO = input.nextInt();
+            } else {
+                break;
+            }
+        }
+    }
+
+    /*
+    4.修改Java工程师资料
+     */
+    public static void modifyEngInf() {
+        System.out.println("Java工程师的编号" + engNo);
+        System.out.println("请输入Java工程师的编号");
+        engNo = input.nextInt();
+        if (engNo <= 0) {
+            status = false;
+            System.out.println("Java工程师编号不能是复数");
+        } else {
+            System.out.println("此项修改成功");
+        }
+
+        System.out.println("Java工程师的名字" + engName);
+        System.out.println("请输入Java工程师的姓名");
+        engName = input.next();
+        if (engName.length() == 0) {
+            status = false;
+            System.out.println("Java工程师名称不能为空");
+
+        } else {
+            System.out.println("此项修改成功");
+        }
+
+        System.out.println("Java工程师的性别" + engSex);
+        System.out.println("请输入Java工程师的性别（1：男 2：女）");
+        int engSexNo = input.nextInt();
+        if (engSexNo != 1 && engSexNo != 2) {
+            status = false;
+            System.out.println("请输入1或2表示性别");
+        } else {
+            if (engSexNo == 1) {
+                engSex = "男";
+            } else {
+                engSex = "女";
+            }
+            System.out.println("此项修改成功");
+        }
+
+        System.out.println("Java工程师学历" + engEdu);
+        System.out.println("请输入Java工程师的学历");
+        System.out.println("1：大专 2：本科 3：硕士 4：博士 5：其他");
+        int engEduNo = input.nextInt();
+        if (engEduNo != 1 && engEduNo != 2 && engEduNo != 3 && engEduNo != 4 && engEduNo != 5) {
+            status = false;
+            System.out.println("请输入以下数字代表学历");
+            System.out.println("1：大专 2：本科 3：硕士 4：博士 5：其他");
+        } else {
+            if (engEduNo == 1) {
+                engEdu = "大专";
+            } else if (engEduNo == 2) {
+                engEdu = "本科";
+            } else if (engEduNo == 3) {
+                engEdu = "硕士";
+            } else if (engEduNo == 4) {
+                engEdu = "博士";
+            } else {
+                engEdu = "其他";
+            }
+            System.out.println("此项修改成功");
+        }
+
+        System.out.println("Java工程师的底薪" + basSalary);
+        System.out.println("请输入Java工程师的底薪");
+        basSalary = input.nextInt();
+        if (basSalary <= 0) {
+            status = false;
+            System.out.println("Java工程师底薪必须为正数");
+        } else {
+            System.out.println("此项修改成功");
+        }
+
+        System.out.println("Java工程师月应扣保险金额" + insurance);
+        System.out.println("请输入Java工程师月应扣保险金额");
+        insurance = input.nextInt();
+        if (insurance <= 0) {
+            status = false;
+            System.out.println("Java工程师月应扣保险金额必须为正数");
+        } else {
+            System.out.println("此项修改成功");
         }
     }
 }
