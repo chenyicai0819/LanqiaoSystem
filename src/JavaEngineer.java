@@ -43,19 +43,7 @@ class JavaEngineer {
                     modifyEngInf();
                     break;
                 case 5:
-                    System.out.println("请输入Java工程师底薪");
-                    basSalary = input.nextInt();
-                    System.out.println("请输入Java工程师月工作完成分数（最小值为0，最大值为150）");
-                    comResult = input.nextInt();
-                    System.out.println("请输入Java工程师月实际工作天数");
-                    workDay = input.nextInt();
-                    System.out.println("请输入Java工程师月应扣保险数");
-                    insurance = input.nextInt();
-                    engSalary = basSalary + basSalary * 0.25 * comResult / 100 + 15 * workDay - insurance;
-                    /*
-                    月薪=底薪+底薪*25%*月工作完成分数/100+15*月实际工作天数-月应扣保险数
-                    */
-                    System.out.println("Java工程师月薪为：" + engSalary);
+                    calEngSalary();
                     break;
                 case 6:
                     System.out.println("a");
@@ -330,5 +318,46 @@ class JavaEngineer {
         } else {
             System.out.println("此项修改成功");
         }
+    }
+
+    /*
+    计算Java工程师实际月薪
+     */
+    public static void calEngSalary(){
+        int calNo=1;
+        while (calNo==1) {
+            if (status == false) {
+                System.out.println("工程师资料未输入或已删除，不能计算");
+            } else {
+                while (true) {
+                    System.out.println("Java工程师月工作完成分数");
+                    comResult = input.nextInt();
+                    if (comResult < 0 || comResult > 150) {
+                        System.out.println("请输入分数范围为0-150");
+                        continue;
+                    } else {
+                        break;
+                    }
+                }
+                while (true) {
+                    System.out.println("请输入Java工程师月实际工作天数");
+                    workDay = input.nextInt();
+                    if (workDay < 0 || workDay > 31) {
+                        System.out.println("每个月实际工作天数应为0-31天");
+                        continue;
+                    } else {
+                        break;
+                    }
+                }
+                engSalary = calEngSalaryValue(basSalary, comResult, workDay, insurance);
+                System.out.println("Java工程师" + engName + "月薪为" + engSalary);
+                System.out.println("输入1继续查看Java工程师实际月薪,输入0退出");
+                calNo= input.nextInt();
+            }
+        }
+    }
+
+    private static double calEngSalaryValue(int basSalary, int comResult, double workDay, double insurance) {
+        return basSalary+basSalary*0.25*comResult/100+15*workDay-insurance;
     }
 }
